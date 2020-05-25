@@ -6,15 +6,10 @@ _currently only one endpoint is mapped_
 
 Install [go-swagger](https://goswagger.io) 
 ```sh
-brew install go-swagger
+brew install openapi-generator
 ```
 
 Run 
 ```sh
 make generate
-```
-
-alternatively using general openapi-generator:
-```
-openapi-generator generate -i atlassian-org.yaml -g go -o orgs
 ```
