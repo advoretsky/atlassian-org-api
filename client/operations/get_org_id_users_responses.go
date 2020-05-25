@@ -51,21 +51,23 @@ func NewGetOrgIDUsersOK() *GetOrgIDUsersOK {
 Successful operation
 */
 type GetOrgIDUsersOK struct {
-	Payload models.UserPage
+	Payload *models.UserPageResponse
 }
 
 func (o *GetOrgIDUsersOK) Error() string {
 	return fmt.Sprintf("[GET /{orgId}/users][%d] getOrgIdUsersOK  %+v", 200, o.Payload)
 }
 
-func (o *GetOrgIDUsersOK) GetPayload() models.UserPage {
+func (o *GetOrgIDUsersOK) GetPayload() *models.UserPageResponse {
 	return o.Payload
 }
 
 func (o *GetOrgIDUsersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.UserPageResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

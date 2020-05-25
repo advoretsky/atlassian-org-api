@@ -14,3 +14,7 @@ Run
 make generate
 ```
 
+alternatively using general openapi-generator:
+```
+openapi-generator generate -i atlassian-org.yaml -g go -o orgs
+```

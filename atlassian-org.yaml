@@ -30,11 +30,25 @@ paths:
         200:
           description: Successful operation
           schema:
-              $ref: '#/definitions/UserPage'
+            $ref: '#/definitions/UserPageResponse'
         '400':
             description: Invalid page cursor
 
 definitions:
+  Links:
+    type: object
+    allOf:
+      - type: object
+        properties:
+          self:
+            type: string
+          next:
+            type: string
+  UserPageResponse:
+    type: object
+    allOf:
+      - $ref: '#/definitions/UserPage'
+      - $ref: '#/definitions/Links'
   UserPage:
     type: array
     items:
