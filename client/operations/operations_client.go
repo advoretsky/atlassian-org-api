@@ -27,7 +27,7 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetOrgIDUsers(params *GetOrgIDUsersParams) (*GetOrgIDUsersOK, error)
+	GetOrgIDUsers(params *GetOrgIDUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetOrgIDUsersOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -36,7 +36,7 @@ type ClientService interface {
   GetOrgIDUsers Returns a list of users in an organization.
 
 */
-func (a *Client) GetOrgIDUsers(params *GetOrgIDUsersParams) (*GetOrgIDUsersOK, error) {
+func (a *Client) GetOrgIDUsers(params *GetOrgIDUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetOrgIDUsersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetOrgIDUsersParams()
@@ -51,6 +51,7 @@ func (a *Client) GetOrgIDUsers(params *GetOrgIDUsersParams) (*GetOrgIDUsersOK, e
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetOrgIDUsersReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

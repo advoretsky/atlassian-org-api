@@ -8,6 +8,14 @@ host: api.atlassian.com
 basePath: /admin/v1/orgs
 schemes:
   - https
+
+securityDefinitions:
+  basicAuth:
+    type: basic
+
+security:
+  - basicAuth: []
+
 paths:
   /{orgId}/users:
     get:
