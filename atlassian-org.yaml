@@ -46,9 +46,11 @@ definitions:
             type: string
   UserPageResponse:
     type: object
-    allOf:
-      - $ref: '#/definitions/UserPage'
-      - $ref: '#/definitions/Links'
+    properties:
+      data:
+        $ref: '#/definitions/UserPage'
+      links:
+        $ref: '#/definitions/Links'
   UserPage:
     type: array
     items:

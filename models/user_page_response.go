@@ -15,64 +15,63 @@ import (
 //
 // swagger:model UserPageResponse
 type UserPageResponse struct {
-	UserPage
 
-	Links
-}
+	// data
+	Data UserPage `json:"data,omitempty"`
 
-// UnmarshalJSON unmarshals this object from a JSON structure
-func (m *UserPageResponse) UnmarshalJSON(raw []byte) error {
-	// AO0
-	var aO0 UserPage
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
-		return err
-	}
-	m.UserPage = aO0
-
-	// AO1
-	var aO1 Links
-	if err := swag.ReadJSON(raw, &aO1); err != nil {
-		return err
-	}
-	m.Links = aO1
-
-	return nil
-}
-
-// MarshalJSON marshals this object to a JSON structure
-func (m UserPageResponse) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 2)
-
-	aO0, err := swag.WriteJSON(m.UserPage)
-	if err != nil {
-		return nil, err
-	}
-	_parts = append(_parts, aO0)
-
-	aO1, err := swag.WriteJSON(m.Links)
-	if err != nil {
-		return nil, err
-	}
-	_parts = append(_parts, aO1)
-	return swag.ConcatJSON(_parts...), nil
+	// links
+	Links *Links `json:"links,omitempty"`
 }
 
 // Validate validates this user page response
 func (m *UserPageResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with UserPage
-	if err := m.UserPage.Validate(formats); err != nil {
+	if err := m.validateData(formats); err != nil {
 		res = append(res, err)
 	}
-	// validation for a type composition with Links
-	if err := m.Links.Validate(formats); err != nil {
+
+	if err := m.validateLinks(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UserPageResponse) validateData(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Data) { // not required
+		return nil
+	}
+
+	if err := m.Data.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("data")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserPageResponse) validateLinks(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Links) { // not required
+		return nil
+	}
+
+	if m.Links != nil {
+		if err := m.Links.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
